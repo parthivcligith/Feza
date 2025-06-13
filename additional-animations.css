@@ -154,7 +154,7 @@
 
 /* Text gradient animation */
 .gradient-text {
-  background: linear-gradient(90deg, #ffffff, #9eebff, #b94539, var(--primary-blue));
+  background: linear-gradient(90deg, #00aedb, #00aedb, #b94539, var(--primary-blue));
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
