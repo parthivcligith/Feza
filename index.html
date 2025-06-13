@@ -103,10 +103,51 @@
     <link rel="stylesheet" href="additional-animations.css">
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="about-us.css">
+    <link rel="stylesheet" href="preloader.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+
+</style>
 </head>
 <body>
+    <!-- Preloader -->
+<div class="preloader">
+    <div class="preloader-content">
+        <div class="logo-container">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-D7BfjMM33bCmcBN3TBoF4CEPSP4eZE.png" alt="Feza Mattresses Logo" class="preloader-logo">
+            <!-- Floating mattress icons -->
+            <i class="fas fa-bed floating-icon"></i>
+            <i class="fas fa-moon floating-icon"></i>
+            <i class="fas fa-cloud floating-icon"></i>
+            <i class="fas fa-star floating-icon"></i>
+        </div>
+        <div class="loading-bar-container">
+            <div class="loading-percentage">0%</div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+        </div>
+        <div class="loading-text">
+            <span>L</span>
+            <span>o</span>
+            <span>a</span>
+            <span>d</span>
+            <span>i</span>
+            <span>n</span>
+            <span>g</span>
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+        </div>
+        <div class="sleep-fact" id="sleep-fact">
+            <h4>Did You Know?</h4>
+            <p>Humans spend about 1/3 of their lives sleeping. A good mattress is essential for quality sleep.</p>
+        </div>
+        <button class="skip-button" id="skip-button">Skip Loading</button>
+    </div>
+</div>
+
     <!-- Island Navigation -->
 <nav class="island-navbar">
     <div class="island-nav-container">
@@ -117,7 +158,7 @@
             <a href="#home" class="nav-link">Home</a>
             <a href="#products" class="nav-link">Products</a>
             <a href="#about" class="nav-link">About</a>
-
+            <a href="#about-us" class="nav-link">Our Story</a>
             <a href="#testimonials" class="nav-link">Reviews</a>
             <a href="#custom" class="nav-link">Custom</a>
             <a href="#contact" class="nav-link">Contact</a>
@@ -139,6 +180,7 @@
 </nav>
 
     <!-- Hero Section with Landing Image -->
+<main>
 <section id="home" class="hero">
     <div class="hero-background">
         <img src="images\chigga.jpg" alt="Best Mattresses in Kerala - Feza Mattresses Kochi" class="hero-bg-image">
@@ -192,7 +234,6 @@
             <h2 class="highlight-text">Why Feza is Kerala's Most Trusted Mattress Brand</h2>
             <p>Serving Kerala families with premium sleep solutions since 2010. From Kochi to Kozhikode, Thrissur to Trivandrum - we're Kerala's choice for quality mattresses.</p>
         </div>
-        <center>
         <div class="kerala-stats">
             <div class="stat-item">
                 <div class="stat-number">50,000+</div>
@@ -211,7 +252,6 @@
                 <div class="stat-label">Customer Satisfaction</div>
             </div>
         </div>
-        </center>
     </div>
 </section>
 
@@ -1026,9 +1066,10 @@
             </div>
         </div>
     </footer>
-
+</main>
     <script src="script.js"></script>
     <script src="animation.js"></script>
+    <script src="preloader-animations.js"></script>
     
     <!-- Text animation script -->
     <script>

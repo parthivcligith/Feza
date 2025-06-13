@@ -1,3 +1,134 @@
+// Preloader functionality with real loading progress
+document.addEventListener("DOMContentLoaded", () => {
+  // Array of sleep facts to display during loading
+  const sleepFacts = [
+    "Humans spend about 1/3 of their lives sleeping. A good mattress is essential for quality sleep.",
+    "The right mattress can help reduce back pain by up to 57% and improve sleep quality by 60%.",
+    "A mattress should be replaced every 7-10 years for optimal comfort and support.",
+    "Memory foam mattresses were first developed by NASA in the 1970s for spacecraft cushioning.",
+    "Kerala's humid climate makes breathable mattress materials like natural latex especially important.",
+    "Side sleepers typically need a softer mattress than back or stomach sleepers.",
+    "The weight of your mattress can double over 10 years due to dust mites and their waste products.",
+    "Natural latex mattresses are resistant to dust mites and mold, making them ideal for Kerala's climate.",
+    "A good mattress can help regulate your body temperature while you sleep.",
+    "Feza Mattresses are specially designed for Kerala's tropical climate and humidity levels.",
+  ]
+
+  let currentFactIndex = 0
+  const sleepFactElement = document.getElementById("sleep-fact")
+  const loadingProgressBar = document.getElementById("loading-progress")
+  const loadingPercentage = document.querySelector(".loading-percentage")
+  const skipButton = document.getElementById("skip-button")
+  const preloader = document.querySelector(".preloader")
+
+  // Function to update sleep facts
+  function updateSleepFact() {
+    sleepFactElement.style.opacity = "0"
+    sleepFactElement.style.transform = "translateY(20px)"
+
+    setTimeout(() => {
+      currentFactIndex = (currentFactIndex + 1) % sleepFacts.length
+      sleepFactElement.querySelector("p").textContent = sleepFacts[currentFactIndex]
+      sleepFactElement.style.opacity = "1"
+      sleepFactElement.style.transform = "translateY(0)"
+    }, 500)
+  }
+
+  // Rotate sleep facts every 5 seconds
+  const factInterval = setInterval(updateSleepFact, 5000)
+
+  // Track real loading progress
+  let loadingProgress = 0
+  const totalResources =
+    document.images.length + document.querySelectorAll("script").length + document.querySelectorAll("link").length
+  let loadedResources = 0
+
+  function updateProgress() {
+    // Calculate real loading progress
+    const realProgress = Math.min(Math.round((loadedResources / totalResources) * 100), 100)
+
+    // Ensure progress always moves forward (never decreases)
+    loadingProgress = Math.max(loadingProgress, realProgress)
+
+    // Update the loading bar and percentage
+    loadingProgressBar.style.width = loadingProgress + "%"
+    loadingPercentage.textContent = loadingProgress + "%"
+
+    // If loading is complete, hide the preloader
+    if (loadingProgress >= 100) {
+      setTimeout(() => {
+        hidePreloader()
+      }, 500)
+    }
+  }
+
+  // Track image loading
+  Array.from(document.images).forEach((img) => {
+    if (img.complete) {
+      loadedResources++
+      updateProgress()
+    } else {
+      img.addEventListener("load", () => {
+        loadedResources++
+        updateProgress()
+      })
+      img.addEventListener("error", () => {
+        loadedResources++
+        updateProgress()
+      })
+    }
+  })
+
+  // Track script loading
+  Array.from(document.querySelectorAll("script")).forEach((script) => {
+    loadedResources++
+    updateProgress()
+  })
+
+  // Track CSS loading
+  Array.from(document.querySelectorAll("link")).forEach((link) => {
+    if (link.rel === "stylesheet") {
+      loadedResources++
+      updateProgress()
+    }
+  })
+
+  // Ensure preloader hides even if resource counting fails
+  window.addEventListener("load", () => {
+    loadingProgress = 100
+    updateProgress()
+  })
+
+  // Skip button functionality
+  skipButton.addEventListener("click", () => {
+    hidePreloader()
+  })
+
+  // Function to hide preloader
+  function hidePreloader() {
+    clearInterval(factInterval)
+    preloader.classList.add("fade-out")
+
+    // Enable scrolling after preloader is gone
+    setTimeout(() => {
+      document.body.style.overflow = "visible"
+
+      // Add the page-content class to the main content for reveal animation
+      const mainContent = document.querySelector("main")
+      if (mainContent) {
+        mainContent.classList.add("page-content")
+      }
+    }, 800)
+  }
+
+  // Fallback to hide preloader after 8 seconds regardless of loading state
+  setTimeout(() => {
+    if (!preloader.classList.contains("fade-out")) {
+      hidePreloader()
+    }
+  }, 8000)
+})
+
 // Product Data
 const products = [
   // Mattresses
@@ -232,7 +363,7 @@ const products = [
     category: "accessories",
     price: 4500,
     image:
-      "https://images.unsplash.com/photo-1584100897494-c5f1432bd6e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+      "https://images.unsplash.com/photo-1584100897494-c5f1432bd6e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
     features: ["Down Alternative", "Hypoallergenic", "Machine Washable", "All Season"],
     description: "Down alternative comforter providing warmth and comfort without allergens, suitable for all seasons.",
   },
